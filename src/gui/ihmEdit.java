@@ -32,7 +32,6 @@ public class ihmEdit extends Application {
         this.itemFilePath = itemFilePath;
     }
 
-
     @Override
     public void start(Stage stage) {
 

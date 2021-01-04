@@ -29,7 +29,6 @@ public class ihmMain extends Application {
     public void start(Stage stage) {
 
 
-
         VBox root = new VBox();
 
         Menu menuEdit = new Menu("Edit");
