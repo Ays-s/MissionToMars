@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 
 public class Simulation {
 
-    protected static ArrayList<Item> loadItems(String itemFilePath) {
+    public static ArrayList<Item> loadItems(String itemFilePath) {
         ArrayList<Item> itemArrayList = new ArrayList<Item>();
         try {
             File file = new File(itemFilePath);

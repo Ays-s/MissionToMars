@@ -50,7 +50,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "\n\t- name='" + name + '\'' +
+        return "name='" + name + '\'' +
                 ", weight=" + weight +
                 ", cost=" + cost +
                 ", nbrPeople=" + nbrPeople;
