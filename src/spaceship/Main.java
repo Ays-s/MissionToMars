@@ -30,12 +30,18 @@ public class Main {
         System.out.println("\nListe fusées U2 pour la phase 2 :");
         printRocket(list_Phase2);
 
+        int budget1;
+        int budget2;
+
         System.out.println("\nPhase 1 :");
-        int budget1 = sim.runSimulation(list_Phase1);
+        int[] resultatSimulation  = sim.runSimulation(list_Phase1);
+        budget1 = resultatSimulation[0];
+
         System.out.println("Budget total = "+ budget1);
 
         System.out.println("\nPhase 2 :");
-        int budget2 = sim.runSimulation(list_Phase2);
+        int[] resultatSimulation2  = sim.runSimulation(list_Phase1);
+        budget2 = resultatSimulation2[0];
         System.out.println("Budget total = "+ budget2);
 
         System.out.println("\n\tOptimisation sécurité :");
@@ -45,11 +51,15 @@ public class Main {
         printRocket(list_Phase2_safe);
 
         System.out.println("\nPhase 1 :");
-        int budget1_safe = sim.runSimulation(list_Phase1_safe);
+        int budget1_safe;
+        int budget2_safe;
+
+        int[] resultatSimulation_safe = sim.runSimulation(list_Phase1_safe);
+        budget1_safe = resultatSimulation_safe[0];
         System.out.println("Budget total = "+ budget1_safe);
 
-        System.out.println("\nPhase 2 :");
-        int budget2_safe = sim.runSimulation(list_Phase2_safe);
+        int[] resultatSimulation_safe2 = sim.runSimulation(list_Phase1_safe);
+        budget2_safe = resultatSimulation_safe[0];
         System.out.println("Budget total = "+ budget2_safe);
 
     }

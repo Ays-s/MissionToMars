@@ -201,7 +201,7 @@ public class Simulation {
         return u2ArrayList;
     }
 
-    public <U extends Rocket> int runSimulation(ArrayList<U> rocketArrayList){
+    public <U extends Rocket> int[] runSimulation(ArrayList<U> rocketArrayList){
         int budget = 0;
         int nombreFuseeCrashee = 0;
         int nbrDead =0;
@@ -231,7 +231,7 @@ public class Simulation {
         else{nbrFuseeCrashStr = nombreFuseeCrashee+" fusées se sont crashées. ";}
 
         System.out.println(nbrFuseeCrashStr + nbrDeadStr);
-        return budget;
+        return new int[] {budget, nbrDead};
     }
 
 }
