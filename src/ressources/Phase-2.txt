@@ -1,0 +1,8 @@
+habitat=3000=10=0
+colony=5000=0=20
+food=5000=5=0
+habitat=3000=10=0
+colony=5000=0=20
+food=3000=5=0
+colony=5000=0=20
+food=3000=2=0
