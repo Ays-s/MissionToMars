@@ -1,5 +1,6 @@
 package spaceship;
 
+import org.apache.commons.math3.distribution.RealDistribution;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 public class U1 extends U {
@@ -10,7 +11,11 @@ public class U1 extends U {
 
     public U1() {
         // Constructeur de la classe par défaut, avec distribution uniforme
-        super(initialWeight, initialMaxWeight, initialCost, initialNbrPeople, 0.01, 0.05, new UniformRealDistribution());
+        super(initialWeight, initialWeight,  initialMaxWeight, initialCost, initialNbrPeople, 0.01, 0.05, new UniformRealDistribution());
+    }
+    public U1(RealDistribution distribution) {
+        // Constructeur de la classe par défaut, avec distribution uniforme
+        super(initialWeight, initialWeight,  initialMaxWeight, initialCost, initialNbrPeople, 0.01, 0.05, distribution);
     }
 }
 

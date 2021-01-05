@@ -5,11 +5,13 @@ public class Rocket implements Spaceship {
     public int cost;
     public int weight;
     private final float maxWeight;
+    private final float minWeight;
     public int nbrPeople;
 
-    public Rocket(int weight, int maxWeight, int cost, int nbrPeople) {
+    public Rocket(int weight, int minWeight, int maxWeight, int cost, int nbrPeople) {
         this.weight = weight;
         this.maxWeight = maxWeight;
+        this.minWeight = minWeight;
         this.cost = cost;
         this.nbrPeople = nbrPeople;
     }
@@ -36,6 +38,10 @@ public class Rocket implements Spaceship {
 
     public float getMaxWeight() {
         return maxWeight;
+    }
+
+    public float getMinWeight() {
+        return minWeight;
     }
 
     public void setWeight(int newWeight) {

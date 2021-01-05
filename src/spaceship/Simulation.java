@@ -2,6 +2,9 @@ package spaceship;
 
 
 
+import org.apache.commons.math3.distribution.NormalDistribution;
+import org.apache.commons.math3.distribution.RealDistribution;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -201,6 +204,16 @@ public class Simulation {
         return u2ArrayList;
     }
 
+    public static int number_of_simulation(U u, double epsilon, float alpha){
+        /* Donne le nombre de simulations nécessaires pour que le nombre moyen d'explosions soit compris dans un
+        * intervalle 2 epsilon, au seuil de alpha (en %) */
+        RealDistribution uDistribution = u.getDistribution();
+        double V = uDistribution.getNumericalVariance();
+        RealDistribution g = new NormalDistribution();
+        double a_T = g.inverseCumulativeProbability((1+alpha)/2);
+        return((int) Math.ceil(Math.pow(V*a_T/epsilon,2)));
+    }
+
     public <U extends Rocket> int[] runSimulation(ArrayList<U> rocketArrayList){
         int budget = 0;
         int nombreFuseeCrashee = 0;
@@ -231,6 +244,11 @@ public class Simulation {
         else{nbrFuseeCrashStr = nombreFuseeCrashee+" fusées se sont crashées. ";}
 
         System.out.println(nbrFuseeCrashStr + nbrDeadStr);
+
+        double epsilon = 0.01;
+        float alpha = 0.999f;
+        String nbSimStr = Float.toString(number_of_simulation((spaceship.U) rocketArrayList.get(0), epsilon, alpha));
+        System.out.println("Nombre de simulation nécessaires pour alpha = " + alpha + " et epsilon = "+epsilon+ ": " + nbSimStr);
         return new int[] {budget, nbrDead};
     }
 

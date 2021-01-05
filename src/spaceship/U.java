@@ -10,11 +10,15 @@ public abstract class U extends Rocket {
     private final double launchExploRate;
     private final RealDistribution distribution;
 
-    public U(int weight, int maxWeight, int cost, int nbrPeople, double landExploRate, double launchExploRate, RealDistribution distribution) {
-        super(weight, maxWeight, cost, nbrPeople);
+    public U(int weight, int minWeight, int maxWeight, int cost, int nbrPeople, double landExploRate, double launchExploRate, RealDistribution distribution) {
+        super(weight, minWeight, maxWeight, cost, nbrPeople);
         this.landExploRate = landExploRate;
         this.launchExploRate = launchExploRate;
         this.distribution = distribution;
+    }
+
+    public RealDistribution getDistribution() {
+        return distribution;
     }
 
     @Override
@@ -37,8 +41,7 @@ public abstract class U extends Rocket {
     public boolean land() {
         // On calcule la probabilité d'explosion à l'aterrissage
         double p;
-        p = landExploRate*this.distribution.cumulativeProbability(this.getWeight()/this.getMaxWeight());
-
+        p = landExploRate*probability();
         // On calcule un nombre aléatoire entre 0 et 1
         double nb;
         nb = Math.random();
@@ -47,6 +50,22 @@ public abstract class U extends Rocket {
         return (nb > p);
     }
 
+    private double probability(){
+        double p = 1;
+        if (this.distribution instanceof UniformRealDistribution){
+            p = this.distribution.cumulativeProbability(this.getWeight()/this.getMaxWeight());
+        }
+        if (this.distribution instanceof PoissonDistribution) {
+            float kf;
+            kf = this.getMaxWeight() * (this.getWeight() - this.getMinWeight()) / (this.getMaxWeight() - this.getWeight());
+            int k;
+            k = Float.floatToIntBits(kf);
+            // quel lambda choisir ?
+            // division par 0. -> INFINITY, floattointbits -> 0x7f800000
+            p = this.distribution.cumulativeProbability(k);
+        }
+        return(p);
+    }
 //    @Override
 //    public String toString() {
 //        return "U{" +
