@@ -97,6 +97,7 @@ public class ihmMain extends Application {
         Button buttonClear = new Button("Clear data");
 
         buttonClear.setOnAction(e -> {
+            nbrLancer.set(0);
             resultatChart.getData().clear();
         });
 
