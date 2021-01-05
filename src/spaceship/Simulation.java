@@ -222,15 +222,16 @@ public class Simulation {
 
 //            System.out.println(r+" Cost = "+r.getCost());
         }
-        if (nbrDead ==0){nbrDeadStr = "Aucun mort.";}
-        else if (nbrDead ==1){nbrDeadStr = "1 mort.";}
-        else {nbrDeadStr = nbrDead + " morts.";}
+        //
+        //if (nbrDead ==0){nbrDeadStr = "Aucun mort.";}
+        // else if (nbrDead ==1){nbrDeadStr = "1 mort.";}
+        // else {nbrDeadStr = nbrDead + " morts.";}
 
-        if (nombreFuseeCrashee == 0){nbrFuseeCrashStr = "Aucun crash. ";}
-        else if (nombreFuseeCrashee == 1){nbrFuseeCrashStr = "1 fusée s'est crashée. ";}
-        else{nbrFuseeCrashStr = nombreFuseeCrashee+" fusées se sont crashées. ";}
+        //if (nombreFuseeCrashee == 0){nbrFuseeCrashStr = "Aucun crash. ";}
+        // else if (nombreFuseeCrashee == 1){nbrFuseeCrashStr = "1 fusée s'est crashée. ";}
+        // else{nbrFuseeCrashStr = nombreFuseeCrashee+" fusées se sont crashées. ";}
 
-        System.out.println(nbrFuseeCrashStr + nbrDeadStr);
+        //System.out.println(nbrFuseeCrashStr + nbrDeadStr);
         return new int[] {budget, nbrDead};
     }
 
