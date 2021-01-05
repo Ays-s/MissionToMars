@@ -13,3 +13,5 @@ public class U1 extends U {
         super(initialWeight, initialMaxWeight, initialCost, initialNbrPeople, 0.01, 0.05, new UniformRealDistribution());
     }
 }
+
+//#--module-path "C:\Program Files\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls.javafx.fxml
