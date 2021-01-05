@@ -142,12 +142,13 @@ public class ihmMain extends Application {
         int[] resultatSimulation2  = sim.runSimulation(list_Phase1U2);
         budget2 = resultatSimulation2[0];
         mort2 = resultatSimulation2[1];
+        System.out.println(mort1 + "  " +mort2);
         sumBudget2 += budget2;
         sumMort2 += mort2;
-        if (budget1>budgetMax){budgetMax = budget1; maxBudgetType=1;}
-        else if (budget2>budgetMax){budgetMax = budget2; maxBudgetType=2;}
-        if (mort1>mortMax){mortMax = mort1; maxMortType=1;}
-        else if (mort2>budgetMax){mortMax = mort2; maxMortType=2;}
+        if (budget1>=budgetMax){budgetMax = budget1; maxBudgetType=1;}
+        if (budget2>=budgetMax){budgetMax = budget2; maxBudgetType=2;}
+        if (mort1>=mortMax){mortMax = mort1; maxMortType=1;}
+        if (mort2>=mortMax){mortMax = mort2; maxMortType=2;}
         }
 
         labelResultatBudgetMax.setText("Budget max : " + budgetMax + ", pour U"+maxBudgetType);
