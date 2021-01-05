@@ -1,0 +1,4 @@
+Résultats des 2 simulations :
+
+Fusées U1 : 
+budget=980, morts=1
