@@ -39,16 +39,16 @@ public class ihmEdit extends Application {
 
         ArrayList<Item> listItems = Simulation.loadItems(this.itemFilePath);
 
-        Label labelName = new Label("Name");
+        Label labelName = new Label("Nom");
         labelName.setMinWidth(150);
-        Label labelWeight = new Label("Weight");
-        Label labelCost = new Label("Cost");
-        Label labelNbrPeople = new Label("Nbr People");
+        Label labelWeight = new Label("Poids");
+        Label labelCost = new Label("Coût");
+        Label labelNbrPeople = new Label("Nombre de personnes");
 
-        Button buttonEdit = new Button("Edit");
-        Button buttonDel = new Button("Remove");
-        Button buttonAdd = new Button("New");
-        Button buttonSave = new Button("Save changes");
+        Button buttonEdit = new Button("Modifier");
+        Button buttonDel = new Button("Effacer");
+        Button buttonAdd = new Button("Nouveau");
+        Button buttonSave = new Button("Enregistrer");
 
         final int[] index = new int[1];
 
@@ -169,7 +169,7 @@ public class ihmEdit extends Application {
 
         Scene scene = new Scene(root, 450, 400);
         stage.setScene(scene);
-        stage.setTitle("Item editing");
+        stage.setTitle("Edition des listes d'objets");
         stage.show();
     }
 
