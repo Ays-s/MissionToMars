@@ -55,5 +55,9 @@ Les classes *spaceship*/*rocket*/*U1*/*U2* modélisent les fuséee envoyées dan
 * loadU1/U2PeopleSafe : Comme Load sauf si il y a des personnes dans l'item -> dans ce cas une nouvelle fusée est créer uniquement pour cet item.
 * runSimulation : execution de la simulation. Lance chaque fusée dans la liste envoyé en parametre, en cas d'explosion envoie une nouvelle fusée. Retourne le budget total de cette liste de fusée (en prenant en compte les explosions).
 
+## Partie 3:
+#### IHM:
+pas de probème jusqua 1 000 000 simulation.
+
 ## Issue:
 - java: package org.junit.jupiter.api does not exist -> add junit to compile scope in settings (Ctlr + Alt + Shift + s)
