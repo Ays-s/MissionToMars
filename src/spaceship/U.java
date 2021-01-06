@@ -8,18 +8,22 @@ public abstract class U extends Rocket {
     // On préfère faire des variables pour être plus explicite et les modifier plus facilement
     private final double landExploRate;
     private final double launchExploRate;
-    private final Probability distribution;
+    private final Probability probabilityDistribution;
 
     public U(int weight, int minWeight, int maxWeight, int cost, int nbrPeople, double landExploRate, double launchExploRate, Probability distribution) {
         super(weight, minWeight, maxWeight, cost, nbrPeople);
         this.landExploRate = landExploRate;
         this.launchExploRate = launchExploRate;
-        this.distribution = distribution;
+        this.probabilityDistribution = distribution;
     }
 
     //public RealDistribution getDistribution() {
     //   return distribution;}
 
+
+    public Probability getProbabilityDistribution() {
+        return probabilityDistribution;
+    }
 
     @Override
     public boolean launch() {
@@ -27,7 +31,7 @@ public abstract class U extends Rocket {
 //        super.launch(launchExploRate);
         double p;
 //         launchExploRate*(this.getWeight()/this.getMaxWeight());
-        p =launchExploRate*this.distribution.probability(this.getWeight(), this.getMinWeight(), this.getMaxWeight());
+        p =launchExploRate*this.probabilityDistribution.probability(this.getWeight(), this.getMinWeight(), this.getMaxWeight());
         // On calcule un nombre aléatoire entre 0 et 1
         double nb;
         nb = Math.random();
@@ -39,9 +43,9 @@ public abstract class U extends Rocket {
 
     @Override
     public boolean land() {
-        // On calcule la probabilité d'explosion à l'aterrissage
+        // On calcule la probabilité d'explosion à l'atterrissage
         double p;
-        p = landExploRate*this.distribution.probability(this.getWeight(), this.getMinWeight(), this.getMaxWeight());
+        p = landExploRate*this.probabilityDistribution.probability(this.getWeight(), this.getMinWeight(), this.getMaxWeight());
         // On calcule un nombre aléatoire entre 0 et 1
         double nb;
         nb = Math.random();

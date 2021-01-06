@@ -207,8 +207,8 @@ public class Simulation {
         /* Donne le nombre de simulations nécessaires pour que le nombre moyen d'explosions soit compris dans un
         * intervalle 2 epsilon, au seuil de alpha (en %)
         * Valable si n>30 => grand échantilllon */
-        RealDistribution uDistribution = u.getDistribution();
-        double V = uDistribution.getNumericalVariance();
+        Probability uProbabilityDistribution = u.getProbabilityDistribution();
+        double V = uProbabilityDistribution.getVariance();
         RealDistribution g = new NormalDistribution();
         double a_T = g.inverseCumulativeProbability((1+alpha)/2);
         return((int) Math.ceil(Math.pow(V*a_T/(2*epsilon),2)));

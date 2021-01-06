@@ -11,10 +11,10 @@ public class U2 extends U {
 
     public U2() {
         // Constructeur de la classe
-        super(initialWeight, initialWeight, initialMaxWeight, initialCost, initialNbrPeople, 0.08, 0.04, new UniformRealDistribution());
+        super(initialWeight, initialWeight, initialMaxWeight, initialCost, initialNbrPeople, 0.08, 0.04, new LinearProbability());
     }
-    public U2(RealDistribution distribution) {
+    public U2(Probability probability) {
         // Constructeur de la classe
-        super(initialWeight, initialWeight, initialMaxWeight, initialCost, initialNbrPeople, 0.08, 0.04, distribution);
+        super(initialWeight, initialWeight, initialMaxWeight, initialCost, initialNbrPeople, 0.08, 0.04, probability);
     }
 }

@@ -11,11 +11,11 @@ public class U1 extends U {
 
     public U1() {
         // Constructeur de la classe par défaut, avec distribution uniforme
-        super(initialWeight, initialWeight,  initialMaxWeight, initialCost, initialNbrPeople, 0.01, 0.05, new UniformRealDistribution());
+        super(initialWeight, initialWeight,  initialMaxWeight, initialCost, initialNbrPeople, 0.01, 0.05, new LinearProbability());
     }
-    public U1(RealDistribution distribution) {
+    public U1(Probability probability) {
         // Constructeur de la classe par défaut, avec distribution uniforme
-        super(initialWeight, initialWeight,  initialMaxWeight, initialCost, initialNbrPeople, 0.01, 0.05, distribution);
+        super(initialWeight, initialWeight,  initialMaxWeight, initialCost, initialNbrPeople, 0.01, 0.05, probability);
     }
 }
 

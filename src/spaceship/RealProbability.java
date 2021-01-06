@@ -1,9 +1,8 @@
 package spaceship;
 
-import org.apache.commons.math3.distribution.IntegerDistribution;
 import org.apache.commons.math3.distribution.RealDistribution;
 
-public abstract class RealProbability {
+public abstract class RealProbability implements Probability{
     private final RealDistribution distribution;
 
     public RealProbability(RealDistribution distribution) {
@@ -12,6 +11,16 @@ public abstract class RealProbability {
 
     public RealDistribution getDistribution() {
         return distribution;
+    }
+
+    @Override
+    public double getMean() {
+        return getDistribution().getNumericalMean();
+    }
+
+    @Override
+    public double getVariance() {
+        return getDistribution().getNumericalVariance();
     }
 
     public abstract double probability(int weight, int minWeight, int maxWeight);
