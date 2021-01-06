@@ -4,8 +4,8 @@ package spaceship;
 public class Rocket implements Spaceship {
     public int cost;
     public int weight;
-    private final float maxWeight;
-    private final float minWeight;
+    private final int maxWeight;
+    private final int minWeight;
     public int nbrPeople;
 
     public Rocket(int weight, int minWeight, int maxWeight, int cost, int nbrPeople) {
@@ -36,11 +36,11 @@ public class Rocket implements Spaceship {
         return weight;
     }
 
-    public float getMaxWeight() {
+    public int getMaxWeight() {
         return maxWeight;
     }
 
-    public float getMinWeight() {
+    public int getMinWeight() {
         return minWeight;
     }
 
