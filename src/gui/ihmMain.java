@@ -222,16 +222,19 @@ public class ihmMain extends Application {
                 fw.write("Fusée U1:\n");
                 fw.write("Budget:"+Arrays.toString(list_budgetU1)+"\n");
                 fw.write("Nombre de morts:"+Arrays.toString(list_nbMortU1)+"\n");
+                fw.write("Moyenne: Budget: " +sumBudget1/nbrSimulation+
+                        ", nombre de morts: "+(float) sumMort1/nbrSimulation+"\n");
                 fw.write("Fusée U2:\n");
                 fw.write("Budget:"+Arrays.toString(list_budgetU2)+"\n");
                 fw.write("Nombre de morts:"+Arrays.toString(list_nbMortU2)+"\n");
+                fw.write("Moyenne: Budget: " +sumBudget2/nbrSimulation+
+                        ", nombre de morts: "+(float) sumMort2/nbrSimulation+"\n");
                 fw.close();
             }
             catch (IOException e){
                 System.out.println("Erreur de sauvegarde.");
             }
         }
-
 
         labelResultatBudgetMax.setText("Budget maximum : \n" + budgetMax + "M€ pour U"+maxBudgetType);
         labelResultatMortMax.setText("Nombre maximum de morts : \n" + mortMax+ " avec la fusée U"+maxMortType);
