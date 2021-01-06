@@ -76,13 +76,25 @@ public class ihmMain extends Application {
         menuEdit.getItems().addAll(subMenuFile, subMenuLoad, subMenuPhase);
 
         menuItemPhase1.setOnAction(e -> {
+            Stage newWindow = new Stage();
+
+            // Set position of second window, related to primary window.
+            newWindow.setX(stage.getX() + 200);
+            newWindow.setY(stage.getY() + 100);
+
             ihmEdit edit = new ihmEdit("src/ressources/Phase-1.txt");
-            edit.start(stage);
+            edit.start(newWindow);
         });
 
         menuItemPhase2.setOnAction(e -> {
+            Stage newWindow = new Stage();
+
+            // Set position of second window, related to primary window.
+            newWindow.setX(stage.getX() + 200);
+            newWindow.setY(stage.getY() + 100);
+
             ihmEdit edit = new ihmEdit("src/ressources/Phase-2.txt");
-            edit.start(stage);
+            edit.start(newWindow);
         });
 
         menuLoadStandard.setOnAction(e -> {
