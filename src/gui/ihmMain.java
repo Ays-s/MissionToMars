@@ -122,7 +122,7 @@ public class ihmMain extends Application {
         });
 
         Menu menuProba = new Menu("Probabilité");
-        MenuItem menuProbaCalc = new MenuItem("Calcule nombre de simulation");
+        MenuItem menuProbaCalc = new MenuItem("Calcul nombre de simulation");
 
         menuProba.getItems().addAll(menuProbaCalc);
         menuProbaCalc.setOnAction(e -> {
