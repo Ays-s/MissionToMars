@@ -1,6 +1,5 @@
 package gui;
 
-import com.sun.javafx.scene.control.IntegerField;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -11,17 +10,19 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.Text;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import spaceship.Item;
+import spaceship.Simulation;
+import spaceship.U1;
+import spaceship.U2;
 
-import spaceship.*;
-
-import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,9 +38,6 @@ public class ihmMain extends Application {
 
     @Override
     public void start(Stage stage) {
-
-        int nbMort = 0;
-        String pathToSave = "";
 
         AtomicInteger nbrLancer = new AtomicInteger();
 
@@ -184,7 +182,7 @@ public class ihmMain extends Application {
 
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
-        BarChart<String,Number> resultatChart = new BarChart<String,Number>(xAxis, yAxis);
+        BarChart<String,Number> resultatChart = new BarChart<>(xAxis, yAxis);
         resultatChart.setTitle("Résultats simulation(s) pour U1 et U2");
 
         xAxis.setLabel("Paramètres");
@@ -273,8 +271,8 @@ public class ihmMain extends Application {
 
         System.out.println("Simulations : " + nbrSimulation);
         ArrayList<Item> listItemsPhase = Simulation.loadItems(pathToPhase);
-        ArrayList<U1> list_Phase1U1 = new ArrayList<U1>();
-        ArrayList<U2> list_Phase1U2 = new ArrayList<U2>();
+        ArrayList<U1> list_Phase1U1 = new ArrayList<>();
+        ArrayList<U2> list_Phase1U2 = new ArrayList<>();
 
         if (loadingMethode==0) {
             list_Phase1U1 = Simulation.loadU1(listItemsPhase);
