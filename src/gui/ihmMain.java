@@ -29,7 +29,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ihmMain extends Application {
 
-    File file;
+    private File file;
+    private int loadingMethode = 0;
+    private String loadingMethodeName = "normal";
+    private String pathToPhase = "src/ressources/Phase-1.txt";
+    private String phaseName = "Phase 1";
 
     @Override
     public void start(Stage stage) {
@@ -41,15 +45,37 @@ public class ihmMain extends Application {
 
         VBox root = new VBox();
 
+        // Résultats de simulation
+        HBox resultat = new HBox();
+        VBox resultatData = new VBox();
+
+        Label labelPhase = new Label(phaseName+"\n" );
+        Label labelLoading = new Label("Chargement " + loadingMethodeName+"\n" );
+        Label labelResultatBudgetMax = new Label("Budget maximum : \n\n" );
+        Label labelResultatMortMax = new Label("Nombre maximum de morts : \n\n" );
+
         // Menu Edit
         Menu menuEdit = new Menu("Modification des paramètres");
 
-        Menu subMenu = new Menu("Modifier le fichier");
+        Menu subMenuFile = new Menu("Modifier le fichier");
         MenuItem menuItemPhase1 = new MenuItem("Phase 1");
-        subMenu.getItems().add(menuItemPhase1);
+        subMenuFile.getItems().add(menuItemPhase1);
         MenuItem menuItemPhase2 = new MenuItem("Phase 2");
-        subMenu.getItems().add(menuItemPhase2);
-        menuEdit.getItems().add(subMenu);
+        subMenuFile.getItems().add(menuItemPhase2);
+
+        Menu subMenuLoad = new Menu("Modifier la méthode de chargement");
+        MenuItem menuLoadStandard = new MenuItem("Chargement standard");
+        subMenuLoad.getItems().add(menuLoadStandard);
+        MenuItem menuLoadSafe = new MenuItem("Chargement sécurisant les personnes");
+        subMenuLoad.getItems().add(menuLoadSafe);
+
+        Menu subMenuPhase = new Menu("Modifier la phase");
+        MenuItem menuChoixPhase1 = new MenuItem("Phase 1");
+        subMenuPhase.getItems().add(menuChoixPhase1);
+        MenuItem menuChoixPhase2 = new MenuItem("Phase 2");
+        subMenuPhase.getItems().add(menuChoixPhase2);
+
+        menuEdit.getItems().addAll(subMenuFile, subMenuLoad, subMenuPhase);
 
         menuItemPhase1.setOnAction(e -> {
             ihmEdit edit = new ihmEdit("src/ressources/Phase-1.txt");
@@ -59,6 +85,30 @@ public class ihmMain extends Application {
         menuItemPhase2.setOnAction(e -> {
             ihmEdit edit = new ihmEdit("src/ressources/Phase-2.txt");
             edit.start(stage);
+        });
+
+        menuLoadStandard.setOnAction(e -> {
+            loadingMethode = 0;
+            loadingMethodeName = "normal";
+            labelLoading.setText("Chargement " + loadingMethodeName+"\n" );
+        });
+
+        menuLoadSafe.setOnAction(e -> {
+            loadingMethode = 1;
+            loadingMethodeName = "sécurisant les personnes";
+            labelLoading.setText("Chargement " + loadingMethodeName+"\n" );
+        });
+
+        menuChoixPhase1.setOnAction(e -> {
+            pathToPhase = "src/ressources/Phase-1.txt";
+            phaseName = "Phase1";
+            labelPhase.setText(phaseName+"\n" );
+        });
+
+        menuChoixPhase2.setOnAction(e -> {
+            pathToPhase = "src/ressources/Phase-2.txt";
+            phaseName = "Phase2";
+            labelPhase.setText(phaseName+"\n" );
         });
 
         // Bar menu
@@ -76,12 +126,7 @@ public class ihmMain extends Application {
 
         simulationProperty.getChildren().addAll(labelNbrSimulation, fieldNbrSimulation);
 
-        // Résultats de simulation
-        HBox resultat = new HBox();
-        VBox resultatData = new VBox();
 
-        Label labelResultatBudgetMax = new Label("Budget maximum : \n\n" );
-        Label labelResultatMortMax = new Label("Nombre maximum de morts : \n\n" );
 
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -95,7 +140,7 @@ public class ihmMain extends Application {
 
         resultat.getChildren().addAll(resultatChart, resultatData);
 
-        resultatData.getChildren().addAll(labelResultatBudgetMax, labelResultatMortMax);
+        resultatData.getChildren().addAll(labelPhase, labelLoading, labelResultatBudgetMax, labelResultatMortMax);
 
 
         // checkbox de sauvegarde
@@ -118,8 +163,6 @@ public class ihmMain extends Application {
                 // Header Text: null
                 alert.setHeaderText(null);
                 alert.setContentText("Arret de l'enregistrement!\nVos enregistrements sont enregistré à: "+file);
-
-
 
                 alert.showAndWait();
                 System.out.println("enregistrer Off");}
@@ -175,9 +218,19 @@ public class ihmMain extends Application {
         int maxMortType =0, maxBudgetType=0;
 
         System.out.println("Simulations : " + nbrSimulation);
-        ArrayList<Item> listItemsPhase1 = Simulation.loadItems("src/ressources/Phase-1.txt");
-        ArrayList<U1> list_Phase1U1 = Simulation.loadU1(listItemsPhase1);
-        ArrayList<U2> list_Phase1U2 = Simulation.loadU2(listItemsPhase1);
+        ArrayList<Item> listItemsPhase = Simulation.loadItems(pathToPhase);
+        ArrayList<U1> list_Phase1U1 = new ArrayList<U1>();
+        ArrayList<U2> list_Phase1U2 = new ArrayList<U2>();
+
+        if (loadingMethode==0) {
+            list_Phase1U1 = Simulation.loadU1(listItemsPhase);
+            list_Phase1U2 = Simulation.loadU2(listItemsPhase);
+        }
+        else if (loadingMethode==1) {
+            list_Phase1U1 = Simulation.loadU1PeopleSafe(listItemsPhase);
+            list_Phase1U2 = Simulation.loadU2PeopleSafe(listItemsPhase);
+        }
+        else {System.out.println("erreur aucune methode de chargement.");}
 
         int[] list_nbMortU1 = new int[nbrSimulation];
         int[] list_nbMortU2 = new int[nbrSimulation];
@@ -218,7 +271,8 @@ public class ihmMain extends Application {
                 if (!append) {
                     fw.write("\nRésultats des simulations du :" + date + ":\n");
                 }
-                fw.write("\n\nLancer numéro "+nbrLancer+", " + nbrSimulation+ " simulations:\n");
+                fw.write("\n\nLancer numéro "+nbrLancer+", " + nbrSimulation+ " simulations, objets "
+                        +phaseName+", méthode de chargement "+ loadingMethodeName +" :\n");
                 fw.write("Fusée U1:\n");
                 fw.write("Budget:"+Arrays.toString(list_budgetU1)+"\n");
                 fw.write("Nombre de morts:"+Arrays.toString(list_nbMortU1)+"\n");
