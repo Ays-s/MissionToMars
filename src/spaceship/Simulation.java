@@ -245,7 +245,7 @@ public class Simulation {
         // else{nbrFuseeCrashStr = nombreFuseeCrashee+" fusées se sont crashées. ";}
 
 
-        System.out.println(nbrFuseeCrashStr + nbrDeadStr);
+        //System.out.println(nbrFuseeCrashStr + nbrDeadStr);
 
         double epsilon = 0.01;
         float alpha = 0.999f;

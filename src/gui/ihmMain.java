@@ -1,7 +1,9 @@
 package gui;
 
+import com.sun.javafx.scene.control.IntegerField;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -10,13 +12,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import spaceship.Item;
-import spaceship.Simulation;
-import spaceship.U1;
-import spaceship.U2;
+import spaceship.*;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -111,9 +111,63 @@ public class ihmMain extends Application {
             labelPhase.setText(phaseName+"\n" );
         });
 
+        Menu menuProba = new Menu("Probabilité");
+        MenuItem menuProbaCalc = new MenuItem("Calcule nombre de simulation");
+
+        menuProba.getItems().addAll(menuProbaCalc);
+        menuProbaCalc.setOnAction(e -> {
+
+        // New window (Stage)
+            VBox boxAll = new VBox();
+            HBox boxAlpha = new HBox();
+            HBox boxEpsilon = new HBox();
+            HBox boxResU1 = new HBox();
+            HBox boxResU2 = new HBox();
+            Label labelAlpha = new Label("Alpha :");
+            Label labelEpsilon = new Label("Epsilon :");
+            TextField fieldAlpha = new TextField("0.999");
+            TextField fieldEpsilon = new TextField("0.01");
+            Label labelResTextU1 = new Label("Nombre de U1: ");
+            Label labelResFieldU1 = new Label("");
+            Label labelResTextU2 = new Label("Nombre de U2: ");
+            Label labelResFieldU2 = new Label("");
+
+            Button buttonCalc = new Button("Calculer");
+
+            buttonCalc.setOnAction(f -> {
+                float alpha = Float.parseFloat(fieldAlpha.getText());
+                float epsilon = Float.parseFloat(fieldEpsilon.getText());
+                U1 u1 = new U1();
+                U2 u2 = new U2();
+                labelResFieldU1.setText(Float.toString(Simulation.number_of_simulation( u1 , epsilon, alpha)));
+                labelResFieldU2.setText(Float.toString(Simulation.number_of_simulation( u2 , epsilon, alpha)));
+            });
+
+            boxAlpha.getChildren().addAll(labelAlpha, fieldAlpha);
+            boxEpsilon.getChildren().addAll(labelEpsilon, fieldEpsilon);
+            boxResU1.getChildren().addAll(labelResTextU1, labelResFieldU1);
+            boxResU2.getChildren().addAll(labelResTextU2, labelResFieldU2);
+            boxAll.getChildren().addAll(boxAlpha, boxEpsilon, buttonCalc, boxResU1, boxResU2);
+            boxAll.setSpacing(15);
+            boxAll.setPadding(new Insets(10,10, 10,10));
+
+            StackPane secondaryLayout = new StackPane();
+            secondaryLayout.getChildren().add(boxAll);
+
+            Scene secondScene = new Scene(secondaryLayout, 340, 180);
+            Stage newWindow = new Stage();
+            newWindow.setTitle("Calcule nombre de simulation");
+            newWindow.setScene(secondScene);
+
+            // Set position of second window, related to primary window.
+            newWindow.setX(stage.getX() + 200);
+            newWindow.setY(stage.getY() + 100);
+
+            newWindow.show();
+        });
         // Bar menu
         MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().add(menuEdit);
+        menuBar.getMenus().addAll(menuEdit, menuProba);
 
         // propriétés de simulation
         HBox simulationProperty = new HBox();
