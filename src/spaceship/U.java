@@ -17,9 +17,9 @@ public abstract class U extends Rocket {
         this.distribution = distribution;
     }
 
-//    public RealDistribution getDistribution() {
-//        return distribution;
-//    }
+    //public RealDistribution getDistribution() {
+    //   return distribution;}
+
 
     @Override
     public boolean launch() {
@@ -49,6 +49,7 @@ public abstract class U extends Rocket {
         // Si le nb trouvé est inférieur à p la fusée explose
         return (nb > p);
     }
+
 
 //    private double probability(){
 //        double p = 1;
