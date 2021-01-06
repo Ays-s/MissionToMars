@@ -10,6 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import spaceship.Item;
@@ -18,15 +19,24 @@ import spaceship.U1;
 import spaceship.U2;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ihmMain extends Application {
+
+    File file;
 
     @Override
     public void start(Stage stage) {
 
         int nbMort = 0;
+        String pathToSave = "";
+
         AtomicInteger nbrLancer = new AtomicInteger();
 
         VBox root = new VBox();
@@ -88,19 +98,41 @@ public class ihmMain extends Application {
         resultatData.getChildren().addAll(labelResultatBudgetMax, labelResultatMortMax);
 
 
+        // checkbox de sauvegarde
+        CheckBox checkBox1 = new CheckBox("Enregistrer les données");
+        checkBox1.setOnAction( e -> {
+            if (checkBox1.isSelected()){System.out.println("enregistrer On");
+                FileChooser fileChooser = new FileChooser();
 
+                //Set extension filter for text files
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+                fileChooser.getExtensionFilters().add(extFilter);
+
+                //Show save file dialog
+                file = fileChooser.showSaveDialog(stage);
+                System.out.println(file);}
+            else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Enregistrement");
+
+                // Header Text: null
+                alert.setHeaderText(null);
+                alert.setContentText("Arret de l'enregistrement!\nVos enregistrements sont enregistré à: "+file);
+
+
+
+                alert.showAndWait();
+                System.out.println("enregistrer Off");}
+        });
 
         // Bouton lancer
         Button buttonSimulate = new Button("Lancer la simulation");
 
-        CheckBox checkBox1 = new CheckBox("Enregistrer les données");
-
         buttonSimulate.setOnAction(e -> {
-            boolean sauv = checkBox1.isSelected();
             nbrLancer.addAndGet(1);
             try {
-                calcData(fieldNbrSimulation,  labelResultatBudgetMax,labelResultatMortMax,
-                             resultatChart, nbrLancer.get(), sauv);
+                calcData(fieldNbrSimulation, labelResultatBudgetMax, labelResultatMortMax,
+                             resultatChart, nbrLancer.get(), checkBox1.isSelected());
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -115,7 +147,7 @@ public class ihmMain extends Application {
             resultatChart.getData().clear();
         });
 
-        //Ajout des boutons simuler et réinitialiser
+        //Ajout des boutons simuler et réinitialiser et de sauvegarde
         resultatData.getChildren().addAll(buttonSimulate, buttonClear, checkBox1);
         resultatData.setSpacing(20);
 
@@ -146,6 +178,13 @@ public class ihmMain extends Application {
         ArrayList<Item> listItemsPhase1 = Simulation.loadItems("src/ressources/Phase-1.txt");
         ArrayList<U1> list_Phase1U1 = Simulation.loadU1(listItemsPhase1);
         ArrayList<U2> list_Phase1U2 = Simulation.loadU2(listItemsPhase1);
+
+        int[] list_nbMortU1 = new int[nbrSimulation];
+        int[] list_nbMortU2 = new int[nbrSimulation];
+        int[] list_budgetU1 = new int[nbrSimulation];
+        int[] list_budgetU2 = new int[nbrSimulation];
+
+
         Simulation sim = new Simulation();
         for (int i =0; i<nbrSimulation;i++){
             int[] resultatSimulation1  = sim.runSimulation(list_Phase1U1);
@@ -156,7 +195,14 @@ public class ihmMain extends Application {
             int[] resultatSimulation2  = sim.runSimulation(list_Phase1U2);
             budget2 = resultatSimulation2[0];
             mort2 = resultatSimulation2[1];
-            System.out.println(mort1 + "  " +mort2);
+
+            if (sauv){
+                list_budgetU1[i] = budget1;
+                list_nbMortU1[i] = mort1;
+                list_budgetU2[i] = budget2;
+                list_nbMortU2[i] = mort2;
+            }
+
             sumBudget2 += budget2;
             sumMort2 += mort2;
             if (budget1>=budgetMax){budgetMax = budget1; maxBudgetType=1;}
@@ -164,10 +210,28 @@ public class ihmMain extends Application {
             if (mort1>=mortMax){mortMax = mort1; maxMortType=1;}
             if (mort2>=mortMax){mortMax = mort2; maxMortType=2;}
         }
+        if (sauv) {
+            boolean append = (nbrLancer!=1);
+            try {
+                LocalDateTime date = LocalDateTime.now();
+                FileWriter fw = new FileWriter(file, append);
+                if (!append) {
+                    fw.write("\nRésultats des simulations du :" + date + ":\n");
+                }
+                fw.write("\n\nLancer numéro "+nbrLancer+", " + nbrSimulation+ " simulations:\n");
+                fw.write("Fusée U1:\n");
+                fw.write("Budget:"+Arrays.toString(list_budgetU1)+"\n");
+                fw.write("Nombre de morts:"+Arrays.toString(list_nbMortU1)+"\n");
+                fw.write("Fusée U2:\n");
+                fw.write("Budget:"+Arrays.toString(list_budgetU2)+"\n");
+                fw.write("Nombre de morts:"+Arrays.toString(list_nbMortU2)+"\n");
+                fw.close();
+            }
+            catch (IOException e){
+                System.out.println("Erreur de sauvegarde.");
+            }
+        }
 
-        try (PrintWriter out = new PrintWriter("Résultats.txt")) {
-            out.println("Résultats des " + nbrSimulation + " simulations :\n");
-            out.println("Fusées U1 : \nbudget=" + sumBudget1/nbrSimulation + ", morts=" + sumMort1/nbrSimulation); }
 
         labelResultatBudgetMax.setText("Budget maximum : \n" + budgetMax + "M€ pour U"+maxBudgetType);
         labelResultatMortMax.setText("Nombre maximum de morts : \n" + mortMax+ " avec la fusée U"+maxMortType);
