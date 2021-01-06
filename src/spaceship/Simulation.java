@@ -181,22 +181,21 @@ public class Simulation {
         boolean carried = false;
         for (Item i: itemArrayList) { //pour tout objet de la liste itemArrayList
             carried = false;
-            for (U2 u: u2ArrayList) { // on regarde dans les fusée qu'on a déja
+            for (U2 u : u2ArrayList) { // on regarde dans les fusée qu'on a déja
                 if (u.canCarry(i)) { //si une fusée peut accueillir l'item i
                     u.carry(i); // on carry
                     carried = true;
                     break;
                 }
             }
-            if (!carried){
+            if (!carried) {
                 if (i.getWeight() <= (U2.initialMaxWeight - U2.initialWeight)) {
                     // si l'objet n'est pas trop gros pour une nouvelle fusée
                     // on en crée une nouvelle fusée
                     currentU2 = new U2();
                     currentU2.carry(i);
                     u2ArrayList.add(currentU2);
-                }
-                else { // sinon on abandonne l'objet
+                } else { // sinon on abandonne l'objet
                     System.out.println("L'objet " + i.toString() + " ne peut être mis dans une fusée.");
                 }
             }
@@ -206,12 +205,13 @@ public class Simulation {
 
     public static int number_of_simulation(U u, double epsilon, float alpha){
         /* Donne le nombre de simulations nécessaires pour que le nombre moyen d'explosions soit compris dans un
-        * intervalle 2 epsilon, au seuil de alpha (en %) */
+        * intervalle 2 epsilon, au seuil de alpha (en %)
+        * Valable si n>30 => grand échantilllon */
         RealDistribution uDistribution = u.getDistribution();
         double V = uDistribution.getNumericalVariance();
         RealDistribution g = new NormalDistribution();
         double a_T = g.inverseCumulativeProbability((1+alpha)/2);
-        return((int) Math.ceil(Math.pow(V*a_T/epsilon,2)));
+        return((int) Math.ceil(Math.pow(V*a_T/(2*epsilon),2)));
     }
 
     public <U extends Rocket> int[] runSimulation(ArrayList<U> rocketArrayList){
