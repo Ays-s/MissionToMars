@@ -249,24 +249,7 @@ public class Simulation {
                 }
             }while (cond);
 
-//            System.out.println(r+" Cost = "+r.getCost());
         }
-        //
-        //if (nbrDead ==0){nbrDeadStr = "Aucun mort.";}
-        // else if (nbrDead ==1){nbrDeadStr = "1 mort.";}
-        // else {nbrDeadStr = nbrDead + " morts.";}
-
-        //if (nombreFuseeCrashee == 0){nbrFuseeCrashStr = "Aucun crash. ";}
-        // else if (nombreFuseeCrashee == 1){nbrFuseeCrashStr = "1 fusée s'est crashée. ";}
-        // else{nbrFuseeCrashStr = nombreFuseeCrashee+" fusées se sont crashées. ";}
-
-
-        //System.out.println(nbrFuseeCrashStr + nbrDeadStr);
-
-        double epsilon = 0.01;
-        float alpha = 0.999f;
-        String nbSimStr = Float.toString(number_of_simulation((spaceship.U) rocketArrayList.get(0), epsilon, alpha));
-        System.out.println("Nombre de simulation nécessaires pour alpha = " + alpha + " et epsilon = "+epsilon+ ": " + nbSimStr);
 
         return new int[] {budget, nbrDead};
     }
