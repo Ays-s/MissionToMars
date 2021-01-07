@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -39,9 +40,27 @@ public class ihmProbaDensity extends Application {
 
 
         buttonEntrer.setOnAction(f -> {
-            this.lambda = Double.parseDouble(fieldLambda.getText());
-            //populating the series with data
-            stage.close();
+            try {
+                this.lambda = Double.parseDouble(fieldLambda.getText());
+                stage.close();
+            }
+            catch (NumberFormatException formatException) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur !");
+                // Header Text: null
+                alert.setHeaderText(null);
+                alert.setContentText("Entrer un lambda de type double!");
+
+                alert.showAndWait();
+            }
+            if (lambda<0){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur !");
+                // Header Text: null
+                alert.setHeaderText(null);
+                alert.setContentText("Entrer un lambda superieure à 0.");
+                alert.showAndWait();
+            }
         });
 
         boxLambda.getChildren().addAll(labelLambda, fieldLambda);

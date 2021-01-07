@@ -84,6 +84,6 @@ public class Rocket implements Spaceship {
                 "weight=" + weight +
                 ", cost=" + cost +
                 ", nbrPeople=" + nbrPeople +
-                '}';
+                "}";
     }
 }

@@ -267,7 +267,7 @@ public class ihmMain extends Application {
             nbrLancer.addAndGet(1);
             try {
                 calcData(fieldNbrSimulation, labelResultatBudgetMax, labelResultatMortMax,
-                             resultatChart, nbrLancer.get(), checkBox1.isSelected());
+                             resultatChart, nbrLancer.get(), checkBox1);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -301,7 +301,7 @@ public class ihmMain extends Application {
     final static String budget = "Budgets";
 
     private void calcData(TextField fieldNbrSimulation, Label labelResultatBudgetMax, Label labelResultatMortMax,
-                          BarChart<String, Number> resultatChart, int nbrLancer, boolean sauv) throws IOException {
+                          BarChart<String, Number> resultatChart, int nbrLancer, CheckBox checkBox1) throws IOException {
         String nameU1 = "U1";
         String nameU2 = "U2";
         int nbrSimulation = 1;
@@ -309,7 +309,7 @@ public class ihmMain extends Application {
             nbrSimulation = Integer.parseInt(fieldNbrSimulation.getText());
         }
         catch (NumberFormatException formatException) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur !");
             // Header Text: null
             alert.setHeaderText(null);
@@ -319,7 +319,7 @@ public class ihmMain extends Application {
             alert.showAndWait();
         }
         if (nbrSimulation<1 || nbrSimulation>2000000){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur !");
             // Header Text: null
             alert.setHeaderText(null);
@@ -365,7 +365,7 @@ public class ihmMain extends Application {
             budget2 = resultatSimulation2[0];
             mort2 = resultatSimulation2[1];
 
-            if (sauv){
+            if (checkBox1.isSelected()){
                 list_budgetU1[i] = budget1;
                 list_nbMortU1[i] = mort1;
                 list_budgetU2[i] = budget2;
@@ -379,7 +379,7 @@ public class ihmMain extends Application {
             if (mort1>=mortMax){mortMax = mort1; maxMortType=1;}
             if (mort2>=mortMax){mortMax = mort2; maxMortType=2;}
         }
-        if (sauv) {
+        if (checkBox1.isSelected()) {
             boolean append = (nbrLancer!=1);
             try {
                 LocalDateTime date = LocalDateTime.now();
@@ -401,8 +401,14 @@ public class ihmMain extends Application {
                         ", nombre de morts: "+(float) sumMort2/nbrSimulation+"\n");
                 fw.close();
             }
-            catch (IOException e){
-                System.out.println("Erreur de sauvegarde.");
+            catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur !");
+                // Header Text: null
+                alert.setHeaderText(null);
+                alert.setContentText("Erreur de sauvegarde.\nVeuillez changer le fichier de sauvegarde.");
+                alert.showAndWait();
+                checkBox1.setSelected(false);
             }
         }
 

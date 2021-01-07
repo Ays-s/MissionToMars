@@ -3,6 +3,7 @@ package gui;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -47,8 +48,27 @@ public class ihmProba extends Application {
             float epsilon = Float.parseFloat(fieldEpsilon.getText());
             U1 u1 = new U1(this.probabilityDistribution);
             U2 u2 = new U2(this.probabilityDistribution);
-            labelResFieldU1.setText(Float.toString(Simulation.number_of_simulation( u1 , epsilon, alpha)));
-            labelResFieldU2.setText(Float.toString(Simulation.number_of_simulation( u2 , epsilon, alpha)));
+            try {
+                labelResFieldU1.setText(Float.toString(Simulation.number_of_simulation( u1 , epsilon, alpha)));
+                labelResFieldU2.setText(Float.toString(Simulation.number_of_simulation( u2 , epsilon, alpha)));
+            }
+            catch (NumberFormatException formatException) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur !");
+                // Header Text: null
+                alert.setHeaderText(null);
+                alert.setContentText("Entrer des nombre de type float!");
+
+                alert.showAndWait();
+            }
+            if (alpha<0 || alpha>1){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur !");
+                // Header Text: null
+                alert.setHeaderText(null);
+                alert.setContentText("Entrer un nombre de simulation entre 1 et 2000000!");
+                alert.showAndWait();
+            }
         });
 
         boxAlpha.getChildren().addAll(labelAlpha, fieldAlpha);

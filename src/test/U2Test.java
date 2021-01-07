@@ -1,6 +1,7 @@
 package test;
 
 import org.junit.jupiter.api.Test;
+import spaceship.ExponentialProbability;
 import spaceship.Item;
 import spaceship.U1;
 import spaceship.U2;
@@ -10,9 +11,24 @@ import static org.junit.jupiter.api.Assertions.*;
 class U2Test {
 
     @Test
+    void testProba(){
+        double lambda = 0.5;
+        U2 rocket = new U2(new ExponentialProbability(lambda));
+        assertNotNull(rocket);
+    }
+
+    @Test
     void getCost() {
         U1 rocket = new U1();
         assertEquals(100, rocket.getCost());
+    }
+
+    @Test
+    void getProbabilityDistribution() {
+        double lambda = 0.5;
+        ExponentialProbability proba = new ExponentialProbability(lambda);
+        U2 rocket = new U2(proba);
+        assertEquals(proba, rocket.getProbabilityDistribution());
     }
 
     @Test

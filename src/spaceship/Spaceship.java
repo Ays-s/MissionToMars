@@ -21,6 +21,8 @@ public interface Spaceship {
 
     // La méthode doit ajouter le poids de l'item passé en argument
     // au poids courant de la fusée
-    default void carry(Item item) {}
+    default void carry(Item item) {
+
+    }
 
 }
