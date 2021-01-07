@@ -227,7 +227,7 @@ public class Simulation {
         double V = uProbabilityDistribution.getVariance();
         RealDistribution g = new NormalDistribution();
         double a_T = g.inverseCumulativeProbability((1+alpha)/2);
-        return((int) Math.ceil(Math.pow(V*a_T/(2*epsilon),2)));
+        return((int) Math.ceil(Math.pow(2*V*a_T/epsilon,2)));
     }
 
     public <U extends Rocket> int[] runSimulation(ArrayList<U> rocketArrayList){
