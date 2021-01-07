@@ -14,6 +14,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import probability.ExponentialProbability;
+import probability.LinearProbability;
+import probability.PoissonProbability;
+import probability.Probability;
 import spaceship.*;
 
 import java.io.File;

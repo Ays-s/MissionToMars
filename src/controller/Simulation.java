@@ -3,6 +3,8 @@ package controller;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.RealDistribution;
+import probability.LinearProbability;
+import probability.Probability;
 import spaceship.*;
 
 import java.io.*;
