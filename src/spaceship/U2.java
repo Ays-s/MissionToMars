@@ -1,7 +1,7 @@
 package spaceship;
 
-import org.apache.commons.math3.distribution.RealDistribution;
-import org.apache.commons.math3.distribution.UniformRealDistribution;
+import probability.LinearProbability;
+import probability.Probability;
 
 public class U2 extends U {
     private static final int initialCost = 120;

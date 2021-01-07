@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import spaceship.Probability;
+import probability.Probability;
 import controller.Simulation;
 import spaceship.U1;
 import spaceship.U2;

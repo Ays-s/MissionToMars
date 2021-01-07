@@ -1,7 +1,7 @@
 package spaceship;
 
 
-import org.apache.commons.math3.distribution.*;
+import probability.Probability;
 
 public abstract class U extends Rocket {
 

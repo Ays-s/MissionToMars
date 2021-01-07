@@ -1,7 +1,9 @@
 package test;
 
 import org.junit.jupiter.api.Test;
-import spaceship.*;
+import probability.ExponentialProbability;
+import probability.LinearProbability;
+import probability.PoissonProbability;
 
 import static org.junit.jupiter.api.Assertions.*;
 

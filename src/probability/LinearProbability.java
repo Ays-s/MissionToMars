@@ -1,4 +1,4 @@
-package spaceship;
+package probability;
 
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 

@@ -1,7 +1,7 @@
 package test;
 
 import org.junit.jupiter.api.Test;
-import spaceship.ExponentialProbability;
+import probability.ExponentialProbability;
 import spaceship.Item;
 import spaceship.U1;
 import spaceship.U2;
