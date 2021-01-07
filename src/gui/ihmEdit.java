@@ -11,9 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.apache.commons.math3.distribution.UniformRealDistribution;
 import spaceship.Item;
-import spaceship.Simulation;
+import controller.Simulation;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

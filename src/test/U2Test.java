@@ -1,6 +1,9 @@
-package spaceship;
+package test;
 
 import org.junit.jupiter.api.Test;
+import spaceship.Item;
+import spaceship.U1;
+import spaceship.U2;
 
 import static org.junit.jupiter.api.Assertions.*;
 

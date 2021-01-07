@@ -1,5 +1,9 @@
-package spaceship;
+package controller;
 
+
+import spaceship.Item;
+import spaceship.Rocket;
+import spaceship.U2;
 
 import java.util.ArrayList;
 
@@ -59,7 +63,7 @@ public class Main {
         System.out.println("Budget total = "+ budget1_safe);
 
         int[] resultatSimulation_safe2 = sim.runSimulation(list_Phase1_safe);
-        budget2_safe = resultatSimulation_safe[0];
+        budget2_safe = resultatSimulation_safe2[0];
         System.out.println("Budget total = "+ budget2_safe);
 
     }

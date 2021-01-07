@@ -1,8 +1,8 @@
 package gui;
 
+import controller.Simulation;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -11,7 +11,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -21,10 +20,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ihmMain extends Application {
@@ -177,7 +174,7 @@ public class ihmMain extends Application {
             newWindow.setX(stage.getX() + 200);
             newWindow.setY(stage.getY() + 100);
 
-            ihmProbaDensity probaDensity = new ihmProbaDensity();
+            ihmProbaDensity probaDensity = new ihmProbaDensity("poisson");
             probaDensity.start(newWindow);
 
             double lambda = probaDensity.getLambda();
@@ -195,7 +192,7 @@ public class ihmMain extends Application {
             newWindow.setX(stage.getX() + 200);
             newWindow.setY(stage.getY() + 100);
 
-            ihmProbaDensity probaDensity = new ihmProbaDensity();
+            ihmProbaDensity probaDensity = new ihmProbaDensity("exponential");
             probaDensity.start(newWindow);
 
             double lambda = probaDensity.getLambda();
