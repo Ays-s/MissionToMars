@@ -110,8 +110,11 @@ public class Simulation {
         u1ArrayList.add(currentU1);
         boolean carried = false;
         for (Item i: itemArrayList) { //pour tout objet de la liste itemArrayList
-            carried = false;
-            if (i.getNbrPeople()>0 && i.getWeight() <= (U1.initialMaxWeight - U1.initialWeight)){
+            carried = false;if (currentU1.getWeight()==U1.initialWeight && currentU1.canCarry(i)) {
+                currentU1.carry(i);
+                carried = true;
+            }
+            if (!carried && i.getNbrPeople()>0 && i.getWeight() <= (U1.initialMaxWeight - U1.initialWeight)){
                 currentU1 = new U1(probabilityDistribution);
                 currentU1.carry(i);
                 u1ArrayList.add(currentU1);
@@ -185,12 +188,17 @@ public class Simulation {
         boolean carried = false;
         for (Item i: itemArrayList) { //pour tout objet de la liste itemArrayList
             carried = false;
-            if (i.getNbrPeople()>0 && i.getWeight() <= (U2.initialMaxWeight - U2.initialWeight)){
+            if (currentU2.getWeight()==U2.initialWeight && currentU2.canCarry(i)) {
+                currentU2.carry(i);
+                carried = true;
+            }
+            if (!carried && i.getNbrPeople() > 0 && i.getWeight() <= (U2.initialMaxWeight - U2.initialWeight)) {
                 currentU2 = new U2(probabilityDistribution);
                 currentU2.carry(i);
                 u2ArrayList.add(currentU2);
                 carried = true;
             }
+
             if (!carried) {
                 for (U2 u : u2ArrayList) { // on regarde dans les fusée qu'on a déja
                     if (u.getNbrPeople() == U2.initialNbrPeople && u.canCarry(i)) { //si une fusée peut accueillir l'item i

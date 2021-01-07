@@ -6,7 +6,7 @@ import spaceship.U1;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class itemTest {
+class ItemTest {
 
     @Test
     void getWeight() {

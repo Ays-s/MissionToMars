@@ -1,11 +1,13 @@
 package test;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 import spaceship.Item;
 import spaceship.Rocket;
 import spaceship.U1;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class RocketTest {
 

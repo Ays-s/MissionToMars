@@ -5,7 +5,7 @@ import spaceship.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class probabilityTest {
+public class ProbabilityTest {
 
     @Test
     void exponentialProbability(){
