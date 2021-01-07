@@ -174,7 +174,7 @@ public class ihmMain extends Application {
             newWindow.setX(stage.getX() + 200);
             newWindow.setY(stage.getY() + 100);
 
-            ihmProbaDensity probaDensity = new ihmProbaDensity("poisson");
+            ihmProbaDensity probaDensity = new ihmProbaDensity();
             probaDensity.start(newWindow);
 
             double lambda = probaDensity.getLambda();
@@ -192,7 +192,7 @@ public class ihmMain extends Application {
             newWindow.setX(stage.getX() + 200);
             newWindow.setY(stage.getY() + 100);
 
-            ihmProbaDensity probaDensity = new ihmProbaDensity("exponential");
+            ihmProbaDensity probaDensity = new ihmProbaDensity();
             probaDensity.start(newWindow);
 
             double lambda = probaDensity.getLambda();
