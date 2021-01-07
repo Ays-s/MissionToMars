@@ -304,16 +304,16 @@ public class ihmMain extends Application {
                           BarChart<String, Number> resultatChart, int nbrLancer, boolean sauv) throws IOException {
         String nameU1 = "U1";
         String nameU2 = "U2";
-        int nbrSimulation;
+        int nbrSimulation = 0;
         try {
             nbrSimulation = Integer.parseInt(fieldNbrSimulation.getText());
         }
-        catch (NumberFormatException) {
+        catch (NumberFormatException formatException) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Erreur !");
             // Header Text: null
             alert.setHeaderText(null);
-            alert.setContentText("Entrer un nombre de simulation de type integer!);
+            alert.setContentText("Entrer un nombre de simulation de type integer!");
 
             alert.showAndWait();
         }
