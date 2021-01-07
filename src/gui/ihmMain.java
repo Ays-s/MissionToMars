@@ -55,22 +55,24 @@ public class ihmMain extends Application {
         // Menu Edit
         Menu menuEdit = new Menu("Modification des paramètres");
 
-        Menu subMenuFile = new Menu("Modifier le fichier");
+        Menu subMenuFile = new Menu("Modifier le fichier de phase");
         MenuItem menuItemPhase1 = new MenuItem("Phase 1");
         subMenuFile.getItems().add(menuItemPhase1);
         MenuItem menuItemPhase2 = new MenuItem("Phase 2");
         subMenuFile.getItems().add(menuItemPhase2);
 
-        Menu subMenuLoad = new Menu("Modifier la méthode de chargement");
-        MenuItem menuLoadStandard = new MenuItem("Chargement standard");
+        Menu subMenuLoad = new Menu("Choisir la méthode de chargement");
+        CheckMenuItem menuLoadStandard = new CheckMenuItem("Chargement standard");
+        menuLoadStandard.setSelected(true);
         subMenuLoad.getItems().add(menuLoadStandard);
-        MenuItem menuLoadSafe = new MenuItem("Chargement sécurisant les personnes");
+        CheckMenuItem menuLoadSafe = new CheckMenuItem("Chargement sécurisant les personnes");
         subMenuLoad.getItems().add(menuLoadSafe);
 
-        Menu subMenuPhase = new Menu("Modifier la phase");
-        MenuItem menuChoixPhase1 = new MenuItem("Phase 1");
+        Menu subMenuPhase = new Menu("Choisir la phase");
+        CheckMenuItem menuChoixPhase1 = new CheckMenuItem("Phase 1");
+        menuChoixPhase1.setSelected(true);
         subMenuPhase.getItems().add(menuChoixPhase1);
-        MenuItem menuChoixPhase2 = new MenuItem("Phase 2");
+        CheckMenuItem menuChoixPhase2 = new CheckMenuItem("Phase 2");
         subMenuPhase.getItems().add(menuChoixPhase2);
 
         menuEdit.getItems().addAll(subMenuFile, subMenuLoad, subMenuPhase);
@@ -101,24 +103,32 @@ public class ihmMain extends Application {
             loadingMethode = 0;
             loadingMethodeName = "normal";
             labelLoading.setText("Chargement " + loadingMethodeName+"\n" );
+            menuLoadStandard.setSelected(true);
+            menuLoadSafe.setSelected(false);
         });
 
         menuLoadSafe.setOnAction(e -> {
             loadingMethode = 1;
             loadingMethodeName = "sécurisant les personnes";
             labelLoading.setText("Chargement " + loadingMethodeName+"\n" );
+            menuLoadStandard.setSelected(false);
+            menuLoadSafe.setSelected(true);
         });
 
         menuChoixPhase1.setOnAction(e -> {
             pathToPhase = "src/ressources/Phase-1.txt";
             phaseName = "Phase1";
             labelPhase.setText(phaseName+"\n" );
+            menuChoixPhase1.setSelected(true);
+            menuChoixPhase2.setSelected(false);
         });
 
         menuChoixPhase2.setOnAction(e -> {
             pathToPhase = "src/ressources/Phase-2.txt";
             phaseName = "Phase2";
             labelPhase.setText(phaseName+"\n" );
+            menuChoixPhase1.setSelected(false);
+            menuChoixPhase2.setSelected(true);
         });
 
         Menu menuProba = new Menu("Probabilité");

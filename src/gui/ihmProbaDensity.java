@@ -3,6 +3,9 @@ package gui;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -35,12 +38,40 @@ public class ihmProbaDensity extends Application {
 
         Button buttonEntrer = new Button("Entrer");
 
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Probabilité");
+        final LineChart<Number,Number> lineChart =
+                new LineChart<Number,Number>(xAxis,yAxis);
+        XYChart.Series seriesU1 = new XYChart.Series();
+        seriesU1.setName("U1");
+        XYChart.Series seriesU2 = new XYChart.Series();
+        seriesU1.setName("U2");
+
+
         buttonEntrer.setOnAction(f -> {
             this.lambda = Double.parseDouble(fieldLambda.getText());
+            //populating the series with data
+            seriesU1.getData().add(new XYChart.Data(1, 23));
+            seriesU1.getData().add(new XYChart.Data(2, 14));
+            seriesU1.getData().add(new XYChart.Data(3, 15));
+            seriesU1.getData().add(new XYChart.Data(4, 24));
+            seriesU1.getData().add(new XYChart.Data(5, 34));
+            seriesU1.getData().add(new XYChart.Data(6, 36));
+            seriesU1.getData().add(new XYChart.Data(7, 22));
+            seriesU1.getData().add(new XYChart.Data(8, 45));
+            seriesU1.getData().add(new XYChart.Data(9, 43));
+            seriesU1.getData().add(new XYChart.Data(10, 17));
+            seriesU1.getData().add(new XYChart.Data(11, 29));
+            seriesU1.getData().add(new XYChart.Data(12, 25));
             stage.close();
         });
 
         boxLambda.getChildren().addAll(labelLambda, fieldLambda);
+
+
+
+        lineChart.setTitle("Répartition de la densité:");
 
         boxAll.getChildren().addAll(boxLambda, buttonEntrer);
         boxAll.setSpacing(15);
@@ -49,13 +80,9 @@ public class ihmProbaDensity extends Application {
         StackPane secondaryLayout = new StackPane();
         secondaryLayout.getChildren().add(boxAll);
 
-        Scene secondScene = new Scene(secondaryLayout, 340, 180);
+        Scene secondScene = new Scene(secondaryLayout, 380, 130);
         stage.setTitle("Choix de la distribution de probabilité");
         stage.setScene(secondScene);
-
-        // Set position of second window, related to primary window.
-        stage.setX(stage.getX() + 200);
-        stage.setY(stage.getY() + 100);
 
         stage.show();
     }
