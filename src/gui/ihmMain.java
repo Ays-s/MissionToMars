@@ -311,7 +311,6 @@ public class ihmMain extends Application {
         catch (NumberFormatException) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Erreur !");
-
             // Header Text: null
             alert.setHeaderText(null);
             alert.setContentText("Entrer un nombre de simulation de type integer!);
