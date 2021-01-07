@@ -304,7 +304,7 @@ public class ihmMain extends Application {
                           BarChart<String, Number> resultatChart, int nbrLancer, boolean sauv) throws IOException {
         String nameU1 = "U1";
         String nameU2 = "U2";
-        int nbrSimulation = 0;
+        int nbrSimulation = 1;
         try {
             nbrSimulation = Integer.parseInt(fieldNbrSimulation.getText());
         }
@@ -313,10 +313,22 @@ public class ihmMain extends Application {
             alert.setTitle("Erreur !");
             // Header Text: null
             alert.setHeaderText(null);
-            alert.setContentText("Entrer un nombre de simulation de type integer!");
+            alert.setContentText("Entrer un nombre de simulation de type integer!"
+            +"\n 1 simulation lancée.");
 
             alert.showAndWait();
         }
+        if (nbrSimulation<1 || nbrSimulation>2000000){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Erreur !");
+            // Header Text: null
+            alert.setHeaderText(null);
+            alert.setContentText("Entrer un nombre de simulation entre 1 et 2000000!"
+                    +"\n 1 simulation lancée.");
+            alert.showAndWait();
+            nbrSimulation=1;
+        }
+
         int budget1, budget2, budgetMax = 0, sumBudget1 = 0, sumBudget2 = 0;
         int mort1, mort2, mortMax = 0, sumMort1 = 0, sumMort2 = 0;
         int maxMortType =0, maxBudgetType=0;
