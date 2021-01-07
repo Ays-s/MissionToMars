@@ -15,17 +15,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import spaceship.Item;
-import spaceship.Simulation;
-import spaceship.U1;
-import spaceship.U2;
+import spaceship.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ihmMain extends Application {
@@ -35,6 +34,7 @@ public class ihmMain extends Application {
     private String loadingMethodeName = "normal";
     private String pathToPhase = "src/ressources/Phase-1.txt";
     private String phaseName = "Phase 1";
+    private Probability probabilityDistribution = new LinearProbability(); //par défaut distribution linéaire
 
     @Override
     public void start(Stage stage) {
@@ -132,9 +132,70 @@ public class ihmMain extends Application {
             newWindow.setX(stage.getX() + 200);
             newWindow.setY(stage.getY() + 100);
 
-            ihmProba proba = new ihmProba();
+            ihmProba proba = new ihmProba(this.probabilityDistribution);
+
+//            fieldNbrSimulation.setText(n);
             proba.start(newWindow);
         });
+
+        /* Menu pour choisir la densité de proba*/
+
+        Menu subMenuProbaDistribution = new Menu("Choix densité de probabilité");
+        menuProba.getItems().addAll(subMenuProbaDistribution);
+        CheckMenuItem menuItemLinear = new CheckMenuItem("Loi linéaire");
+        subMenuProbaDistribution.getItems().add(menuItemLinear);
+        CheckMenuItem menuItemPoisson = new CheckMenuItem("Loi de Poisson");
+        subMenuProbaDistribution.getItems().add(menuItemPoisson);
+        CheckMenuItem menuItemExponential = new CheckMenuItem("Loi Exponentielle");
+        subMenuProbaDistribution.getItems().add(menuItemExponential);
+
+        //par défaut la distribution sélectionnée est celle linéaire
+        menuItemLinear.setSelected(true);
+
+        menuItemLinear.setOnAction(e -> {
+            this.probabilityDistribution = new LinearProbability();
+            menuItemPoisson.setSelected(false);
+            menuItemExponential.setSelected(false);
+            menuItemLinear.setSelected(true);
+        });
+
+        menuItemPoisson.setOnAction(e -> {
+
+            Stage newWindow = new Stage();
+
+            // Set position of second window, related to primary window.
+            newWindow.setX(stage.getX() + 200);
+            newWindow.setY(stage.getY() + 100);
+
+            ihmProbaDensity probaDensity = new ihmProbaDensity();
+            probaDensity.start(newWindow);
+
+            double lambda = probaDensity.getLambda();
+            this.probabilityDistribution = new PoissonProbability(lambda);
+            menuItemLinear.setSelected(false);
+            menuItemExponential.setSelected(false);
+            menuItemPoisson.setSelected(true);
+        });
+
+        menuItemExponential.setOnAction(e -> {
+
+            Stage newWindow = new Stage();
+
+            // Set position of second window, related to primary window.
+            newWindow.setX(stage.getX() + 200);
+            newWindow.setY(stage.getY() + 100);
+
+            ihmProbaDensity probaDensity = new ihmProbaDensity();
+            probaDensity.start(newWindow);
+
+            double lambda = probaDensity.getLambda();
+            this.probabilityDistribution = new ExponentialProbability(lambda);
+            menuItemLinear.setSelected(false);
+            menuItemPoisson.setSelected(false);
+            menuItemExponential.setSelected(true);
+        });
+
+
         // Bar menu
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().addAll(menuEdit, menuProba);
@@ -147,7 +208,6 @@ public class ihmMain extends Application {
 
         Label labelNbrSimulation = new Label("Nombre de simulations :");
         TextField fieldNbrSimulation = new TextField("1");
-
         simulationProperty.getChildren().addAll(labelNbrSimulation, fieldNbrSimulation);
 
 
@@ -191,6 +251,7 @@ public class ihmMain extends Application {
                 alert.showAndWait();
                 System.out.println("enregistrer Off");}
         });
+
 
         // Bouton lancer
         Button buttonSimulate = new Button("Lancer la simulation");
@@ -247,12 +308,12 @@ public class ihmMain extends Application {
         ArrayList<U2> list_Phase1U2 = new ArrayList<>();
 
         if (loadingMethode==0) {
-            list_Phase1U1 = Simulation.loadU1(listItemsPhase);
-            list_Phase1U2 = Simulation.loadU2(listItemsPhase);
+            list_Phase1U1 = Simulation.loadU1(listItemsPhase, this.probabilityDistribution);
+            list_Phase1U2 = Simulation.loadU2(listItemsPhase, this.probabilityDistribution);
         }
         else if (loadingMethode==1) {
-            list_Phase1U1 = Simulation.loadU1PeopleSafe(listItemsPhase);
-            list_Phase1U2 = Simulation.loadU2PeopleSafe(listItemsPhase);
+            list_Phase1U1 = Simulation.loadU1PeopleSafe(listItemsPhase, this.probabilityDistribution);
+            list_Phase1U2 = Simulation.loadU2PeopleSafe(listItemsPhase, this.probabilityDistribution);
         }
         else {System.out.println("erreur aucune methode de chargement.");}
 

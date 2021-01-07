@@ -70,9 +70,9 @@ public class Simulation {
     }
 
 
-    public static ArrayList<U1> loadU1(ArrayList<Item> itemArrayList){
+    public static ArrayList<U1> loadU1(ArrayList<Item> itemArrayList, Probability probabilityDistribution){
         ArrayList<U1> u1ArrayList = new ArrayList<U1>();
-        U1 currentU1 = new U1(); // une fusée de type U1
+        U1 currentU1 = new U1(probabilityDistribution); // une fusée de type U1
         u1ArrayList.add(currentU1);
         boolean carried = false;
         for (Item i: itemArrayList) { //pour tout objet de la liste itemArrayList
@@ -88,7 +88,7 @@ public class Simulation {
                 if (i.getWeight() <= (U1.initialMaxWeight - U1.initialWeight)) {
                     // si l'objet n'est pas trop gros pour une nouvelle fusée
                     // on en crée une nouvelle fusée
-                    currentU1 = new U1();
+                    currentU1 = new U1(probabilityDistribution);
                     currentU1.carry(i);
                     u1ArrayList.add(currentU1);
                 }
@@ -100,15 +100,19 @@ public class Simulation {
         return u1ArrayList;
     }
 
-    public static ArrayList<U1> loadU1PeopleSafe (ArrayList<Item> itemArrayList){
+    public static ArrayList<U1> loadU1(ArrayList<Item> itemArrayList){
+        return loadU1(itemArrayList, new LinearProbability());
+    }
+
+    public static ArrayList<U1> loadU1PeopleSafe (ArrayList<Item> itemArrayList, Probability probabilityDistribution){
         ArrayList<U1> u1ArrayList = new ArrayList<U1>();
-        U1 currentU1 = new U1(); // une fusée de type U1
+        U1 currentU1 = new U1(probabilityDistribution); // une fusée de type U1
         u1ArrayList.add(currentU1);
         boolean carried = false;
         for (Item i: itemArrayList) { //pour tout objet de la liste itemArrayList
             carried = false;
             if (i.getNbrPeople()>0 && i.getWeight() <= (U1.initialMaxWeight - U1.initialWeight)){
-                currentU1 = new U1();
+                currentU1 = new U1(probabilityDistribution);
                 currentU1.carry(i);
                 u1ArrayList.add(currentU1);
                 carried = true;
@@ -124,7 +128,7 @@ public class Simulation {
                 if (!carried && i.getWeight() <= (U1.initialMaxWeight - U1.initialWeight)) {
                     // si l'objet n'est pas trop gros pour une nouvelle fusée
                     // on en crée une nouvelle fusée
-                    currentU1 = new U1();
+                    currentU1 = new U1(probabilityDistribution);
                     currentU1.carry(i);
                     u1ArrayList.add(currentU1);
                     carried = true;
@@ -137,46 +141,13 @@ public class Simulation {
         return u1ArrayList;
     }
 
-    public static ArrayList<U2> loadU2PeopleSafe (ArrayList<Item> itemArrayList){
-        ArrayList<U2> u2ArrayList = new ArrayList<U2>();
-        U2 currentU2 = new U2(); // une fusée de type U1
-        u2ArrayList.add(currentU2);
-        boolean carried = false;
-        for (Item i: itemArrayList) { //pour tout objet de la liste itemArrayList
-            carried = false;
-            if (i.getNbrPeople()>0 && i.getWeight() <= (U2.initialMaxWeight - U2.initialWeight)){
-                currentU2 = new U2();
-                currentU2.carry(i);
-                u2ArrayList.add(currentU2);
-                carried = true;
-            }
-            if (!carried) {
-                for (U2 u : u2ArrayList) { // on regarde dans les fusée qu'on a déja
-                    if (u.getNbrPeople() == U2.initialNbrPeople && u.canCarry(i)) { //si une fusée peut accueillir l'item i
-                        u.carry(i); // on carry
-                        carried = true;
-                        break;
-                    }
-                }
-                if (!carried && i.getWeight() <= (U2.initialMaxWeight - U2.initialWeight)) {
-                    // si l'objet n'est pas trop gros pour une nouvelle fusée
-                    // on en crée une nouvelle fusée
-                    currentU2 = new U2();
-                    currentU2.carry(i);
-                    u2ArrayList.add(currentU2);
-                    carried = true;
-                }
-            }
-            if (!carried) { // sinon on abandonne l'objet
-                System.out.println("L'objet " + i.toString() + " ne peut être mis dans une fusée.");
-            }
-        }
-        return u2ArrayList;
+    public static ArrayList<U1> loadU1PeopleSafe (ArrayList<Item> itemArrayList){
+        return loadU1PeopleSafe(itemArrayList, new LinearProbability());
     }
 
-    public static ArrayList<U2> loadU2(ArrayList<Item> itemArrayList){
+    public static ArrayList<U2> loadU2(ArrayList<Item> itemArrayList, Probability probabilityDistribution){
         ArrayList<U2> u2ArrayList = new ArrayList<U2>();
-        U2 currentU2 = new U2(); // une fusée de type U1
+        U2 currentU2 = new U2(probabilityDistribution); // une fusée de type U1
         u2ArrayList.add(currentU2);
         boolean carried = false;
         for (Item i: itemArrayList) { //pour tout objet de la liste itemArrayList
@@ -192,7 +163,7 @@ public class Simulation {
                 if (i.getWeight() <= (U2.initialMaxWeight - U2.initialWeight)) {
                     // si l'objet n'est pas trop gros pour une nouvelle fusée
                     // on en crée une nouvelle fusée
-                    currentU2 = new U2();
+                    currentU2 = new U2(probabilityDistribution);
                     currentU2.carry(i);
                     u2ArrayList.add(currentU2);
                 } else { // sinon on abandonne l'objet
@@ -201,6 +172,51 @@ public class Simulation {
             }
         }
         return u2ArrayList;
+    }
+
+    public static ArrayList<U2> loadU2(ArrayList<Item> itemArrayList){
+        return loadU2(itemArrayList, new LinearProbability());
+    }
+
+    public static ArrayList<U2> loadU2PeopleSafe (ArrayList<Item> itemArrayList, Probability probabilityDistribution){
+        ArrayList<U2> u2ArrayList = new ArrayList<U2>();
+        U2 currentU2 = new U2(probabilityDistribution); // une fusée de type U1
+        u2ArrayList.add(currentU2);
+        boolean carried = false;
+        for (Item i: itemArrayList) { //pour tout objet de la liste itemArrayList
+            carried = false;
+            if (i.getNbrPeople()>0 && i.getWeight() <= (U2.initialMaxWeight - U2.initialWeight)){
+                currentU2 = new U2(probabilityDistribution);
+                currentU2.carry(i);
+                u2ArrayList.add(currentU2);
+                carried = true;
+            }
+            if (!carried) {
+                for (U2 u : u2ArrayList) { // on regarde dans les fusée qu'on a déja
+                    if (u.getNbrPeople() == U2.initialNbrPeople && u.canCarry(i)) { //si une fusée peut accueillir l'item i
+                        u.carry(i); // on carry
+                        carried = true;
+                        break;
+                    }
+                }
+                if (!carried && i.getWeight() <= (U2.initialMaxWeight - U2.initialWeight)) {
+                    // si l'objet n'est pas trop gros pour une nouvelle fusée
+                    // on en crée une nouvelle fusée
+                    currentU2 = new U2(probabilityDistribution);
+                    currentU2.carry(i);
+                    u2ArrayList.add(currentU2);
+                    carried = true;
+                }
+            }
+            if (!carried) { // sinon on abandonne l'objet
+                System.out.println("L'objet " + i.toString() + " ne peut être mis dans une fusée.");
+            }
+        }
+        return u2ArrayList;
+    }
+
+    public static ArrayList<U2> loadU2PeopleSafe (ArrayList<Item> itemArrayList){
+        return loadU2PeopleSafe(itemArrayList, new LinearProbability()); // si pas de densité de proba donnée, par défaut on prend la linéaire
     }
 
     public static int number_of_simulation(U u, double epsilon, float alpha){

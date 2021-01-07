@@ -10,12 +10,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import spaceship.Probability;
 import spaceship.Simulation;
 import spaceship.U1;
 import spaceship.U2;
 
 public class ihmProba extends Application {
+    private Probability probabilityDistribution;
 
+    public ihmProba(Probability probabilityDistribution){
+        this.probabilityDistribution = probabilityDistribution;
+    }
 
     @Override
     public void start(Stage stage) {
@@ -40,8 +45,8 @@ public class ihmProba extends Application {
         buttonCalc.setOnAction(f -> {
             float alpha = Float.parseFloat(fieldAlpha.getText());
             float epsilon = Float.parseFloat(fieldEpsilon.getText());
-            U1 u1 = new U1();
-            U2 u2 = new U2();
+            U1 u1 = new U1(this.probabilityDistribution);
+            U2 u2 = new U2(this.probabilityDistribution);
             labelResFieldU1.setText(Float.toString(Simulation.number_of_simulation( u1 , epsilon, alpha)));
             labelResFieldU2.setText(Float.toString(Simulation.number_of_simulation( u2 , epsilon, alpha)));
         });
