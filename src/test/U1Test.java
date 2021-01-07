@@ -34,7 +34,7 @@ class U1Test {
     @Test
     void launch() {
         int succesWithItem;
-        int nbrLoop = 10000;
+        int nbrLoop = 100000;
 
         System.out.println("Test launch() U1:");
         for (int weight = 0; weight <= 8; weight++) {
@@ -62,7 +62,7 @@ class U1Test {
     @Test
     void land() {
         int succesWithItem;
-        int nbrLoop = 10000;
+        int nbrLoop = 100000;
 
         System.out.println("\nTest land() U1:");
         for (int weight = 0; weight <= 8; weight++) {
