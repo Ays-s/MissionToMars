@@ -3,7 +3,7 @@
 ## Java project
 Marie-Amelie Defresne, Ayrwan Guillermo, Adrien Grivey
 
-Projet java de 2éme année ENSTA bretagne.
+Second year JAVA project. SOIA / SNS - ENSTA Bretagne. 
 
 ### Instaltion with IntelliJ:
 - open new project
@@ -19,9 +19,9 @@ To run the application with intelliJ IDE u have to modify one option in the conf
  ```
  For exemple :
  ```
-  "C:\Users\ayrwa\JavaProject\MissionToMars\lib\javafx-sdk-11.0.2\lib"
+  "C:\Users\ayrwa\IdeaProjects\MissionToMars\lib\javafx-sdk-11.0.2\lib"
  ```
- - run 'ihmMain) (Maj + F10)
+ - run 'ihmMain' (Maj + F10)
 
 ### Run the test:
 - select testAll as launch configuration
