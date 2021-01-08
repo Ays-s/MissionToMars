@@ -112,7 +112,8 @@ public class Simulation {
         u1ArrayList.add(currentU1);
         boolean carried = false;
         for (Item i: itemArrayList) { //pour tout objet de la liste itemArrayList
-            carried = false;if (currentU1.getWeight()==U1.initialWeight && currentU1.canCarry(i)) {
+            carried = false;
+            if (currentU1.getWeight()==U1.initialWeight && currentU1.canCarry(i)) {
                 currentU1.carry(i);
                 carried = true;
             }
