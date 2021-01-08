@@ -2,7 +2,7 @@
   <configuration default="false" name="ihmMain" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="gui.ihmMain" />
     <module name="MissionToMars" />
-    <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\ayrwa\IdeaProjects\MissionToMars\lib\javafx-sdk-11.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+    <option name="VM_PARAMETERS" value="--module-path &quot;path\to\project\folder\MissionToMars\lib\javafx-sdk-11.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
