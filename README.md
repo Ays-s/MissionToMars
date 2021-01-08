@@ -30,4 +30,4 @@ To run the application with intelliJ IDE you have to modify one option in the co
 
 
 ### Issue:
-- java: package org.junit.jupiter.api does not exist -> add junit to compile scope in settings (Ctlr + Alt + Shift + s)
+- java: package org.junit.jupiter.api does not exist -> add junit to compile scope in settings (ctrl + alt + shift + s)
