@@ -5,12 +5,12 @@ Marie-Amelie Defresne, Ayrwan Guillermo, Adrien Grivey
 
 Second year JAVA project. SOIA / SNS - ENSTA Bretagne. 
 
-### Instaltion with IntelliJ:
+### Installation with IntelliJ:
 - open new project
 - select the project folder
 
 ### Run application
-To run the application with intelliJ IDE you have to modify one option in the configuation settings.
+To run the application with intelliJ IDE, you have to modify one option in the configuation settings.
 - Select 'ihmMain' as configuration
 - click 'Edit confiuration'
 - Modifye the VM options :
